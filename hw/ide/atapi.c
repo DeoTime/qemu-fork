@@ -36,7 +36,7 @@
 
 static void ide_atapi_cmd_read_dma_cb(void *opaque, int ret);
 
-static void padstr8(uint8_t *buf, int buf_size, const char *src)
+static void padthai8(uint8_t *buf, int buf_size, const char *src)
 {
     int i;
     for(i = 0; i < buf_size; i++) {
@@ -749,7 +749,7 @@ static void cmd_inquiry(IDEState *s, uint8_t *buf)
             buf[idx++] = 0x00; /* Vendor Specific */
             buf[idx++] = 0x00;
             buf[idx++] = 20;   /* Remaining length */
-            padstr8(buf + idx, 20, s->drive_serial_str);
+            padthai8(buf + idx, 20, s->drive_serial_str);
             idx += 20;
 
             /* Entry 2: Drive Model and Serial */
@@ -761,11 +761,11 @@ static void cmd_inquiry(IDEState *s, uint8_t *buf)
             buf[idx++] = 0x01; /* T10 Vendor */
             buf[idx++] = 0x00;
             buf[idx++] = 68;
-            padstr8(buf + idx, 8, "ATA"); /* Generic T10 vendor */
+            padthai8(buf + idx, 8, "ATA"); /* Generic T10 vendor */
             idx += 8;
-            padstr8(buf + idx, 40, s->drive_model_str);
+            padthai8(buf + idx, 40, s->drive_model_str);
             idx += 40;
-            padstr8(buf + idx, 20, s->drive_serial_str);
+            padthai8(buf + idx, 20, s->drive_serial_str);
             idx += 20;
 
             /* Entry 3: WWN */
@@ -798,9 +798,9 @@ static void cmd_inquiry(IDEState *s, uint8_t *buf)
         buf[5] = 0;    /* reserved */
         buf[6] = 0;    /* reserved */
         buf[7] = 0;    /* reserved */
-        padstr8(buf + 8, 8, "QEMU");
-        padstr8(buf + 16, 16, "QEMU DVD-ROM");
-        padstr8(buf + 32, 4, s->version);
+        padthai8(buf + 8, 8, "QEMU");
+        padthai8(buf + 16, 16, "Toshiba DVD-ROM SD-M1612");
+        padthai8(buf + 32, 4, s->version);
         idx = 36;
     }
 
